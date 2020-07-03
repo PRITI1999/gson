@@ -230,6 +230,9 @@ public final class LinkedHashTreeMap<K, V> extends AbstractMap<K, V> implements 
    * uses power-of-two length hash tables, that otherwise encounter collisions
    * for hashCodes that do not differ in lower or upper bits.
    */
+  /*The below function logic does not depend on sign bit,
+   * therefore unsigned shift operation used as a zero fill shift is safe*/
+  @SuppressWarnings("shift.unsigned")
   private static int secondaryHash(int h) {
     // Doug Lea's supplemental hash function
     h ^= (h >>> 20) ^ (h >>> 12);

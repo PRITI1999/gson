@@ -238,6 +238,9 @@ public final class JsonPrimitive extends JsonElement {
     return getAsString().charAt(0);
   }
 
+  /*The below function logic does not depend on sign bit,
+   *therefore unsigned shift operation used as a zero fill shift is safe*/
+  @SuppressWarnings("shift.unsigned")
   @Override
   public int hashCode() {
     if (value == null) {
