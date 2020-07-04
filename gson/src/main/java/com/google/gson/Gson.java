@@ -405,6 +405,9 @@ public final class Gson {
         }
         out.endArray();
       }
+      /*i in list.get(i) #1 throws a warning "required @Signed Long found 
+       * @UnknownSignedness Long" though i by default is a @Signed int*/
+      @SuppressWarnings("signedness:argument.type.incompatible")
       @Override public AtomicLongArray read(JsonReader in) throws IOException {
         List<Long> list = new ArrayList<Long>();
         in.beginArray();
@@ -416,7 +419,7 @@ public final class Gson {
         int length = list.size();
         AtomicLongArray array = new AtomicLongArray(length);
         for (int i = 0; i < length; ++i) {
-          array.set(i, list.get(i));
+          array.set(i, list.get(i)); //#1
         }
         return array;
       }

@@ -263,6 +263,9 @@ public final class TypeAdapters {
       newFactory(AtomicBoolean.class, TypeAdapters.ATOMIC_BOOLEAN);
 
   public static final TypeAdapter<AtomicIntegerArray> ATOMIC_INTEGER_ARRAY = new TypeAdapter<AtomicIntegerArray>() {
+    /*i in list.get(i) #1 throws a warning "required @Signed int found 
+     *@UnknownSignedness int" though i by default is a @Signed int*/
+    @SuppressWarnings("signedness:argument.type.incompatible")
     @Override public AtomicIntegerArray read(JsonReader in) throws IOException {
         List<Integer> list = new ArrayList<Integer>();
         in.beginArray();
@@ -278,7 +281,7 @@ public final class TypeAdapters {
         int length = list.size();
         AtomicIntegerArray array = new AtomicIntegerArray(length);
         for (int i = 0; i < length; ++i) {
-          array.set(i, list.get(i));
+          array.set(i, list.get(i)); //#1
         }
         return array;
     }
